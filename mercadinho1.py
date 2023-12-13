@@ -3,15 +3,15 @@ import os
 dia=0
 def salvarestoque(produto):
     file = open('estoque_mercado.txt', 'w')  # Nessa parte vai ser criado um arquivo que vai ter o dicionário com o estoque de produtos
-    for chave, valor in produto.items():
-        file.write(f'{chave}: {valor}\n')
-    file.close()
+    for chave, valor in produto.items(): # pega-se a cahve e após o valor que na chave está contido
+        file.write(f'{chave}: {valor}\n') # escreve no arquivo que será criado estoque_mercado txt o que tem no dicionário produto
+    file.close() # fecha o arquivo
 
 def pegarestoquedoarquivo(produto, vetornome):
     fileestoque = open('estoque_mercado.txt','r') #nessa parte vai ser pego o arquivo com o estoque
-    for leitura in fileestoque:
-        chave, valor=leitura.strip().split(':', 1)
-        chave,valor=chave.strip(),valor.strip().strip(' " ')
+    for leitura in fileestoque: #leitura de cada linha do arquivo
+        chave, valor=leitura.strip().split(':', 1) #será armazenado o valor do nome do produto na chave do dicionário e os valores(código do produto, preço, quantidade e tipo de quantidade) .strip limpa espaços em branco e .split divide em duas listas
+        chave,valor=chave.strip(),valor.strip().strip(' " ') #retira os espços vazios e retira também as ['valores'] aspas
         valor=ast.literal_eval(valor)
         vetornome+=[chave]
         produto[chave]=valor
@@ -143,6 +143,11 @@ while escolha !=0:
                             valorf += produto[chaves][1] * comprados[chaves]
                         del comprados[chaves]
 
+                        if novaqtd == 0 and qtd2>0:
+                            print(f'Você só consegue comprar a quantidade total que tem no estoque {qtd}.')
+                            controle=0
+                            maiscompras=0
+                            
                         if novaqtd==0: # Se a quantidade de um produto for 0, retira-se o mesmo do estoque
                             print('Voce comprou todo o estoque do produto em questão!')
                             controle=0
@@ -153,10 +158,6 @@ while escolha !=0:
                                         del produto[compras]
                                         break
                             
-                        if novaqtd == 0 and qtd2>0:
-                            print(f'Você só consegue comprar a quantidade total que tem no estoque {qtd}.')
-                            controle=0
-                            maiscompras=0
 
                                 
             if controle==1 and prosseguir==1:
