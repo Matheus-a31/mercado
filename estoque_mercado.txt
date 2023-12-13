@@ -1,0 +1,2 @@
+arroz: ['11253', 5.3, 50, 'unidades']
+feijao: ['45669', 4.9, 100, 'unidades']
