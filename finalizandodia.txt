@@ -4,3 +4,4 @@
 4 - DIA FIALIZADO:    clientes:0   Valor em caixa: 0
 5 - DIA FIALIZADO:    clientes:0   Valor em caixa: 0
 6 - DIA FIALIZADO:    clientes:0   Valor em caixa: 0
+7 - DIA FIALIZADO:    clientes:1   Valor em caixa: 363.0

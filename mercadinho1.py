@@ -15,7 +15,7 @@ def pegarestoquedoarquivo(produto, vetornome):
         valor=ast.literal_eval(valor)
         vetornome+=[chave]
         produto[chave]=valor
-        print(valor)
+        print(chave, valor)
     fileestoque.close()
 
 def tabela(vetornome):
@@ -113,6 +113,7 @@ while escolha !=0:
         prosseguir=1
         # usamos um  while, pois não sabemos em tese, quantos produtos serão comprados
         while maiscompras != 0:
+            cont=0
             prosseguir=1
             tabela(vetornome)
             compras = str(input('Digite o nome do produto que quer comprar: '))
@@ -146,23 +147,32 @@ while escolha !=0:
                         if novaqtd == 0 and qtd2>0:
                             print(f'Você só consegue comprar a quantidade total que tem no estoque {qtd}.')
                             controle=0
+                            prosseguir=0
                             maiscompras=0
-                            
-                        if novaqtd==0: # Se a quantidade de um produto for 0, retira-se o mesmo do estoque
+                            valorf=0
+                            cont+=1
+                            produto[compras][2]=qtd
+                        if novaqtd==0 and cont==0: # Se a quantidade de um produto for 0, retira-se o mesmo do estoque
                             print('Voce comprou todo o estoque do produto em questão!')
                             controle=0
-                            for i in range(len(vetornome)):
+                            # Cria cópias das listas e dicionário
+                            vetornome_copia = vetornome.copy()
+                            produto_copia = produto.copy()
+                            for i in range(len(vetornome_copia)):
                                 for j in range(len(vetorcompras)):
-                                    if produto[compras][2]==0 and vetorcompras[j] == vetornome[i] :
-                                        del vetornome[i]
+                                    if compras in produto_copia and produto_copia[compras][2] == 0 and vetorcompras[j] == vetornome_copia[i]:
+                # Remove o elemento das cópias
+                                        vetornome.remove(vetornome_copia[i])
                                         del produto[compras]
                                         break
+                                    
                             
 
                                 
             if controle==1 and prosseguir==1:
                 tabela(vetornome)
-            maiscompras = int(input('Quer comprar mais?\nSIM(1)\nNAO(0)\n'))
+            if prosseguir==1:
+                maiscompras = int(input('Quer comprar mais?\nSIM(1)\nNAO(0)\n'))
 
             if maiscompras != 0 and maiscompras != 1: #tratamento de erro
                 print('opção inválida')
